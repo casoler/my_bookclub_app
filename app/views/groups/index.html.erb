@@ -1,0 +1,4 @@
+<% @groups.each do |group| %>
+  <%= group.name %>
+  <%= link_to 'Join', "/groups/#{group.id}/add_member", method: :post %>
+<% end %>

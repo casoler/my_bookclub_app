@@ -1,0 +1,20 @@
+<%= @group.name %>
+
+<div>
+  Members:
+  <% @group.members.each do |member| %>
+    <%= member.user.first_name %>
+    <%= member.user.last_name %>
+  <% end %>
+</div>
+
+<div>
+  <%= link_to 'Add a Book', "/groups/#{@group.id}/books" %>
+</div>
+
+<div>
+  Past Books:
+  <% @group.past_books.each do |past_book| %>
+    <%= past_book.book.title %>
+  <% end %>
+</div>

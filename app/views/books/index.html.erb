@@ -1,0 +1,8 @@
+<% @books.each do |book| %>
+  Title: <%= book.title %>
+  Author: <%= book.author %>
+  ISBN: <%= book.isbn %>
+  <% if params[:group_id] %>
+    <%= link_to "Add", "/groups/#{params[:group_id]}/add_book/#{book.id}", method: :post %>
+  <% end %>
+<% end %>
