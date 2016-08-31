@@ -1,11 +1,21 @@
-<h3>User</h3>
+<h3><%= @user.first_name %> <%= @user.last_name %></h3>
 
-First Name: <%= @user.first_name %>
-Last Name: <%= @user.last_name %>
-Email: <%= @user.email %>
-Zip Code: <%= @user.zip_code %>
+<div>
+  Email: <%= @user.email %>
+  Zip Code: <%= @user.zip_code %>
+</div>
 
-<%= link_to 'Join a Group', '/groups' %>
+<div>
+  Current groups: 
+  <% @user.groups.each do |group| %>
+    <p><%= group.name %></p>
+    <p><%= Member.get_leader(group) && (Member.get_leader(group).user == @user) %></p>
+  <% end %>
+</div>
+
+<%= link_to 'Join a New Group', '/groups' %>
+
+
 
 
 

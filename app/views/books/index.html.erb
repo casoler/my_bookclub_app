@@ -1,8 +1,42 @@
-<% @books.each do |book| %>
-  Title: <%= book.title %>
-  Author: <%= book.author %>
-  ISBN: <%= book.isbn %>
-  <% if params[:group_id] %>
-    <%= link_to "Add", "/groups/#{params[:group_id]}/add_book/#{book.id}", method: :post %>
+Select books for next month:
+
+<!-- <table>
+  <tr>
+    <th>Select</th>
+    <th>Title</th>
+    <th>Authors</th>
+  </tr> -->
+
+
+
+  <%= form_tag '/book_suggestions' do  %>
+    <% @books.each do |book| %>
+      <p>
+        <%= check_box_tag('book_suggestions[]', book.id, checked = false) %>
+        <%= label_tag book.title %>
+        <%= label_tag book.authors %>
+        <%= hidden_field_tag 'group_id', @group_id %>
+      </p>
+    <% end %>
+    <%= submit_tag 'Select' %>
   <% end %>
-<% end %>
+
+
+<!-- 
+
+<%#= form_tag "/products/#{@product.id}/images", method: 'post' do %>
+  <div  class="form-group">
+    <%#= label_tag :url %>
+    <%#= text_field_tag :url, '', class: 'form-control' %>
+  </div>
+
+  <div  class="form-group">
+    <%#= label_tag :product_id %>
+    <%#= text_field_tag :product_id, params[:product_id], class: 'form-control' %>
+  </div>
+  
+  <div>
+    <%#= submit_tag 'Add the Image', class: "btn btn-default"%>
+  </div>
+<%# end %>
+ -->

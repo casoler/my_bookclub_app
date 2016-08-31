@@ -1,6 +1,8 @@
 class GroupsController < ApplicationController
   def index
-    @groups = Group.all
+    partitioned_groups = Group.all.partition { |group| group.is_member?(current_user) }
+    @my_groups = partitioned_groups[0]
+    @other_groups = partitioned_groups[1]
   end
 
   def new
@@ -9,35 +11,34 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(
-      name: params[:name]
+      name: params[:name],
+      genres: params[:genres],
+      about: params[:about],
+      city: params[:city],
+      state: params[:state],
+      zip_code: params[:zip_code]
     )
 
     if @group.save
-      add_member(group_id: @group.id, leader_flag: params[:leader_flag])
+      leader_flag = params[:leader_flag] == 'true' ? true : false
 
-      flash[:success] = 'Group created.'
-      redirect_to '/groups'
+      @member = @group.add_member(
+        user_id: current_user.id,
+        leader_flag: leader_flag
+      )
+
+      if @member
+        flash[:success] = 'Group created.'
+        redirect_to "/groups/#{@group.id}"
+      else
+        flash[:success] = "Group created, but you weren't added to the group.  Please join group."
+        redirect_to "/groups/#{@group.id}/add_member"
+      end
     else
       flash[:warning] = 'Group not created.'
       render '/new'
     end
   end
-
-  # def add_member()
-  #   group_id = params[:id]
-
-  #   @member = Member.new(
-  #     group_id: group_id,
-  #     user_id: current_user.id
-  #   )
-  #   if @member.save
-  #     flash[:success] = "You've successfully joined the #{Group.find_by(id: group_id)}"
-  #     redirect_to "/groups/#{group_id}"
-  #   else
-  #     flash[:warning] = 'There was an error joining this group.  Please try again.'
-  #     render '/groups'
-  #   end
-  # end
 
   def add_book
     @past_book = PastBook.new(
@@ -51,22 +52,23 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find_by(id: params[:id])
-    
+    @leader = Member.get_leader(@group)
   end
 
-  def add_member(data)
-    group_id = data[:group_id]
-    leader_flag = data[:leader_flag]
-
-    @member = Member.new(
-      group_id: group_id,
-      user_id: current_user.id
+  def add_member
+    @group = Group.find_by(id: params[:id])
+    @member = @group.add_member(
+      user_id: current_user.id,
+      leader_flag: params[:leader_flag]
     )
-    if @member.save
-      flash[:success] = "You've successfully joined the #{Group.find_by(id: group_id)}"
-      redirect_to "/groups/#{group_id}"
+
+    if @member
+      flash[:success] = "You've successfully joined the #{@group.name} group"
+      redirect_to "/groups/#{@group.id}"
     else
-      flash[:warning] = 'There was an error joining this group.  Please try again.'
+      flash[:warning] =
+        'There was an error joining this group. Please try again.'
       render '/groups'
     end
+  end
 end

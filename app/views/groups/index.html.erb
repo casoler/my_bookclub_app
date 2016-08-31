@@ -1,4 +1,22 @@
-<% @groups.each do |group| %>
-  <%= group.name %>
-  <%= link_to 'Join', "/groups/#{group.id}/add_member", method: :post %>
-<% end %>
+<p>
+  <h4>My Groups:</h4>
+
+  <% @my_groups.each do |group| %>
+    <h5><%= link_to group.name, "/groups/#{group.id}" %></h5>
+  <% end %>
+</p>
+
+<p>
+  <h4>Other Groups:</h4>
+
+  <% @other_groups.each do |group| %>
+    <h5><%= link_to group.name, "/groups/#{group.id}" %></h5>
+    <%#= link_to 'Join', "/groups/#{group.id}/add_member", method: :post %>
+  <% end %>
+</p>
+
+<p>
+  <h4>Create a new Group</h4>
+  <%= link_to 'Create a New Group', "/groups/new" %>
+</p>
+

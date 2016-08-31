@@ -1,16 +1,39 @@
-<%= @group.name %>
+<h3><%= @group.name %></h3>
+
+<p>
+  Leader: 
+    <% if @leader %>
+      <%= @leader.first_name %> <%= @leader.last_name %>
+    <% else %>
+      No Leader
+    <% end %>
+</p>
+
+<p>
+  <div>
+    Members:
+    <% @group.members.each do |member| %>
+      <%= member.user.first_name %>
+      <%= member.user.last_name %>
+    <% end %>
+  </div>
+</p>
 
 <div>
-  Members:
-  <% @group.members.each do |member| %>
-    <%= member.user.first_name %>
-    <%= member.user.last_name %>
+  <% if @leader %>
+    <%= link_to "Make a suggestion list for next month's book", books_path(group_id: @group.id) %>
   <% end %>
 </div>
 
 <div>
-  <%= link_to 'Add a Book', "/groups/#{@group.id}/books" %>
+  <% if @leader %>
+    <%= link_to "Select next month's book", "/groups/#{@group.id}/books" %>
+  <% end %>
 </div>
+
+<div>
+  This month's book: 
+</div> 
 
 <div>
   Past Books:

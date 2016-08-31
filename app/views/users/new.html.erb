@@ -1,21 +1,33 @@
 <h1>Signup!</h1>
 
+<% if @user.errors.any? %>
+  <div id='error_explanation'>
+    <h2><%= pluralize(@user.errors.count, 'error') %> prohibited your information from being saved:</h2>
+
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_tag '/users', method: :post do  %>
   <div>
     <%= label_tag :first_name %>
-    <%= text_field_tag :first_name %>
+    <%= text_field_tag :first_name, @user.first_name %>
   </div>
   <div>
     <%= label_tag :last_name %>
-    <%= text_field_tag :last_name %>
+    <%= text_field_tag :last_name, @user.last_name %>
   </div>
   <div>
     <%= label_tag :email %>
-    <%= text_field_tag :email %>
+    <%= text_field_tag :email, @user.email %>
   </div>
   <div>
     <%= label_tag :zip_code %>
-    <%= text_field_tag :zip_code %>
+    <%= text_field_tag :zip_code, @user.zip_code %>
   </div>
   <div>
     <%= label_tag :password %>

@@ -8,4 +8,6 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :email, presence: true
   validates :zip_code, presence: true
+
+  validates :email, uniqueness: true
 end
