@@ -1,6 +1,31 @@
-<% @book_suggestions.each do |suggestion| %>
-  <p>
-    <%= suggestion.google_book_id %>
-  </p>
-<% end %>
+<div ng-app="app">
+  <h3><%= @group.name %></h3>
+
+  <h4>This month's suggestions</h4>
+
+  <% @book_suggestions.each do |suggestion| %>
+    <h3><% book = GoogleBooks.search(suggestion.google_book_id).first %></h3>
+    <div class='row'>
+      Title: <%= book.title %>  
+    </div>
+    <div class='row'>
+      <%= image_tag("#{book.image_link}", width: '100') %>
+    </div>
+    <div class='row'>
+      Author(s): <%= book.authors %>
+    </div>
+    <div class='row'>
+      Description: <%= book.description %>
+    </div>
+
+    <div ng-controller="bookSuggestionCtrl">
+      <%= suggestion.google_book_id %>
+      <div ng-click="setVote(<%= current_user.id %>, '<%= suggestion.google_book_id %>', <%= @group.id %>)">
+        <%= check_box_tag "Read next month?" %>
+      </div>
+    </div>
+    
+    <br/>
+  <% end %>
+</div>
 

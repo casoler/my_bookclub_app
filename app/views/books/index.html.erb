@@ -9,7 +9,7 @@ Select books for next month:
 
 
 
-  <%= form_tag '/book_suggestions' do  %>
+  <%= form_tag "/groups/#{@group_id}/book_suggestions" do  %>
     <% @books.each do |book| %>
       <p>
         <%= check_box_tag('book_suggestions[]', book.id, checked = false) %>

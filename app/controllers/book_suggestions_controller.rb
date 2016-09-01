@@ -1,6 +1,8 @@
 class BookSuggestionsController < ApplicationController
   def index
-    @book_suggestions = BookSuggestion.where(group_id: params[:group_id])
+    @group = Group.find_by(id: params[:group_id])
+    @book_suggestions = @group.book_suggestions
+    # @member = 
   end
 
   def new
@@ -21,6 +23,6 @@ class BookSuggestionsController < ApplicationController
       end
     end
     flash[:success] = 'hurray'
-    redirect_to book_suggestions_path(group_id: @group_id)
+    redirect_to "/groups/#{@group_id}/book_suggestions"
   end
 end
