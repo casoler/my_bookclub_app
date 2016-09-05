@@ -2,8 +2,8 @@
 
 <p>
   Leader: 
-    <% if @leader %>
-      <%= @leader.first_name %> <%= @leader.last_name %>
+    <% if @member.group_leader? %>
+      <%= @member.user.first_name %> <%= @member.user.last_name %>
     <% else %>
       No Leader
     <% end %>
@@ -20,16 +20,13 @@
 </p>
 
 <div>
-  <% if @leader %>
-    <%= link_to "Make a suggestion list for next month's book", books_path(group_id: @group.id) %>
+  <% if @member.group_leader? %>
+    <%= link_to "Make a suggestion list for next month's book", books_path(member_id: @member.id) %>
+    <%= link_to "Select next month's book", api_v1_book_votes_path(group_id: @group.id) %>
   <% end %>
 </div>
 
-<div>
-  <% if @leader %>
-    <%= link_to "Select next month's book", "/groups/#{@group.id}/books" %>
-  <% end %>
-</div>
+
 
 <div>
   This month's book: 

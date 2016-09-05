@@ -15,8 +15,9 @@ class Member < ApplicationRecord
     end
   end
 
-  def is_group_leader?(group, user)
-    leader = where(group_id: group.id).where(leader_flag: true).first
-    user
+  def group_leader?   #(group, user)
+    leader_flag
+    # leader = where(group_id: group.id).where(leader_flag: true).first
+    # user
   end
 end

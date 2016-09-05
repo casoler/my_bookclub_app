@@ -7,15 +7,21 @@
     // $scope.message = "Hello world!";
     $scope.anotherMessage = "Goodbye world!";
 
-    $scope.setVote = function(current_user_id, google_book_id, group_id) {
+    $scope.setVote = function(member_id, group_id, google_book_id) {
       var params = {
-        _id: current_user_id,
+        member_id: member_id,
+        group_id: group_id,
         google_book_id: google_book_id
       };
       console.log('setVote', params);
       $http.post('/api/v1/book_votes.json', params).then(function(response) {
         console.log(response.data);
       });
+    };
+
+    $scope.showDescription = function(book){
+      console.log($scope.showBookDescription);
+      $scope.showBookDescription = !$scope.showBookDescription;
     };
  
     window.$scope = $scope;  /* use for debugging in chrome console */

@@ -52,7 +52,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find_by(id: params[:id])
-    @leader = Member.get_leader(@group)
+    @member = Member.find_by(user_id: current_user.id, group_id: params[:id])
   end
 
   def add_member

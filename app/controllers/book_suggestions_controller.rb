@@ -2,7 +2,8 @@ class BookSuggestionsController < ApplicationController
   def index
     @group = Group.find_by(id: params[:group_id])
     @book_suggestions = @group.book_suggestions
-    # @member = 
+    @member = Member.find_by(group_id: @group.id, user_id: current_user.id)
+   
   end
 
   def new

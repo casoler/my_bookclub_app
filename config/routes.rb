@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get '/book_votes' => 'book_votes#index'
       post '/book_votes' => 'book_votes#create'
+      delete '/book_votes' => 'book_votes#destroy'
     end
   end
 
