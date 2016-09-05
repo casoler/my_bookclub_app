@@ -40,19 +40,26 @@ class GroupsController < ApplicationController
     end
   end
 
-  def add_book
-    @past_book = PastBook.new(
-      group_id: params[:group_id],
-      book_id: params[:book_id]
-    )
+  # def add_book
+  #   @past_book = SelectedBook.new(
+  #     group_id: params[:group_id],
+  #     book_id: params[:book_id]
+  #   )
 
-    @past_book.save
-    redirect_to "/groups/#{params[:group_id]}"
-  end
+  #   @past_book.save
+  #   redirect_to "/groups/#{params[:group_id]}"
+  # end
 
   def show
     @group = Group.find_by(id: params[:id])
     @member = Member.find_by(user_id: current_user.id, group_id: params[:id])
+
+    this_month = Time.now
+    next_month = this_month + 1.month
+    @group_books = @group.selected_books.order(:year, :month)
+    @past_books = @group_books.find_all {|book| book.month < this_month.month && book.year <= this_month.year}
+    @this_months_book = @group_books.find_by(month: this_month.month, year: this_month.year)
+    @next_months_book = @group_books.find_by(month: next_month.month, year: next_month.year)
   end
 
   def add_member

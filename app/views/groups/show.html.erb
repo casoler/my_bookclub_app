@@ -22,19 +22,31 @@
 <div>
   <% if @member.group_leader? %>
     <%= link_to "Make a suggestion list for next month's book", books_path(member_id: @member.id) %>
-    <%= link_to "Select next month's book", api_v1_book_votes_path(group_id: @group.id) %>
+    <%= link_to "Select next month's book", book_votes_path(group_id: @group.id) %>
   <% end %>
 </div>
 
-
+<div>
+  <%= link_to "Vote for next month's book", "/groups/#{@group.id}/book_suggestions" %>
+</div>
 
 <div>
   This month's book: 
+  <% book = BookSuggestion.find_by(google_book_id: @this_months_book.google_book_id) %>
+  <%= book.title %>
 </div> 
 
 <div>
+  Next month's book: 
+  <% book = BookSuggestion.find_by(google_book_id: @next_months_book.google_book_id) %>
+  <%= book.title %>
+</div>
+
+<div>
   Past Books:
-  <% @group.past_books.each do |past_book| %>
-    <%= past_book.book.title %>
+  <% @past_books.each do |past_book| %>
+    <br/>
+    <% book = BookSuggestion.find_by(google_book_id: past_book.google_book_id) %>
+    <%= book.title %>
   <% end %>
 </div>

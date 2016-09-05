@@ -1,7 +1,7 @@
 class Group < ApplicationRecord
   has_many :members
   has_many :users, through: :members
-  has_many :past_books
+  has_many :selected_books
   has_many :book_suggestions
 
   validates :name, presence: true

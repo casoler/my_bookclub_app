@@ -1,0 +1,14 @@
+<%= form_tag '/selected_books' do %>
+
+  <%= hidden_field_tag 'group_id', @group.id %>
+  <% @books.each do |book| %>
+    <p>
+      <%= radio_button_tag 'google_book_id', book[:google_book_id] %>
+      <%= book[:title] %>
+      <%= book[:author] %>
+      <%= book[:votes] %>
+    </p>
+  <% end %>
+  <%= submit_tag 'Select' %>
+<% end %>
+

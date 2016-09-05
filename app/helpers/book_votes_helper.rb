@@ -1,0 +1,2 @@
+module BookVotesHelper
+end

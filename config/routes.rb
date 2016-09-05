@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+
   get '/groups/:group_id/book_suggestions'     => 'book_suggestions#index'
   get '/groups/:group_id/book_suggestions/new' => 'book_suggestions#new'
   post '/groups/:group_id/book_suggestions'    => 'book_suggestions#create'
@@ -12,13 +14,15 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get '/book_votes' => 'book_votes#index'
+      # get '/book_votes' => 'book_votes#index'
       post '/book_votes' => 'book_votes#create'
       delete '/book_votes' => 'book_votes#destroy'
     end
   end
 
   get '/books'                => 'books#index'
+  post '/selected_books'      => 'selected_books#create'
+  get '/book_votes'           => 'book_votes#index'
 
   get '/signup'               => 'users#new'
   post '/users'               => 'users#create'
