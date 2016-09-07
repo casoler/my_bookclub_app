@@ -1,6 +1,6 @@
-<h1>Create a Group</h1>
+<h1>Edit <%= @group.name %></h1>
 
-<%= form_tag '/groups', method: :post do %>
+<%= form_tag "/groups/#{@group.id}", method: 'patch' do %>
   <div>
     <%= label_tag 'Name *' %>
     <%= text_field_tag :name, @group.name, required: true, placeholder: 'Group Name' %>
@@ -27,11 +27,11 @@
 
   <div>
     <% @genres.each do |genre| %>
-      <%= check_box_tag('genres[]', genre.id, checked = false) %>
+      <%= check_box_tag('genres[]', genre.id, checked = @group_genres.find_by(genre_id: genre.id)) %>
       <%= genre.genre %>
       <br/>
     <% end %>
   </div>
    
-  <%= submit_tag "Submit" %>
+  <%= submit_tag "Change Group" %>
 <% end %>

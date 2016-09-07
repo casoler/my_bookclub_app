@@ -1,0 +1,36 @@
+<h1>Set Up a Meeting</h1>
+
+<%= form_tag '/meetings', method: :post do %>
+  <div>
+    Location:
+    <%= text_field_tag :location, @meeting.location, placeholder: 'Location' %>
+  </div>
+
+  <div>
+    Address:
+    <%= text_field_tag :address, @meeting.address, placeholder: 'Address' %><br/>
+    <%= text_field_tag :city, @meeting.city, placeholder: 'City' %>, <%= text_field_tag :state, @meeting.state, placeholder: 'State' %> <%= text_field_tag :zip, @meeting.zip, placeholder: 'Zip Code' %>
+  </div>
+
+  <div>
+    Date and Time:
+    <%= datetime_local_field_tag :meeting_date, @meeting.meeting_date, order: [:month, :day, :year] %>
+    <%#= time_select :time, @meeting.time %>
+  </div>
+
+  <div>
+    <%= label_tag 'Additional Info:' %>
+    <%= text_area_tag :notes, @meeting.notes %>
+  </div>
+
+  <div>
+    Send an email to all members?
+    <%= label_tag :send_email_flag, 'Yes' %>
+    <%= radio_button_tag :send_email_flag, true %>
+    <%= label_tag :send_email_flag, 'No' %>
+    <%= radio_button_tag :send_email_flag, false %>
+  </div>
+   
+  <%= hidden_field_tag :group_id, @group.id %>
+  <%= submit_tag "Submit" %>
+<% end %>

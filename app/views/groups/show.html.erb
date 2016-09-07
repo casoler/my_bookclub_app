@@ -1,5 +1,7 @@
 <h3><%= @group.name %></h3>
 
+<%= link_to 'Edit', "/groups/#{@group.id}/edit" %>
+
 <p>
   Leader: 
     <% if @member.group_leader? %>
@@ -7,6 +9,19 @@
     <% else %>
       No Leader
     <% end %>
+</p>
+
+<p>
+  Location:
+  <%= @group.city %>, <%= @group.state %>
+</p>
+
+<p>
+  Genres:
+  <% @group_genres.each do |group_genre| %>
+    <br/>
+    <%= group_genre.genre.genre %>
+  <% end %>
 </p>
 
 <p>
@@ -22,7 +37,10 @@
 <div>
   <% if @member.group_leader? %>
     <%= link_to "Make a suggestion list for next month's book", books_path(member_id: @member.id) %>
+    <br/>
     <%= link_to "Select next month's book", book_votes_path(group_id: @group.id) %>
+    <br/>
+    <%= link_to "Set up next month's meeting", meetings_new_path(group_id: @group.id) %>
   <% end %>
 </div>
 
@@ -32,14 +50,18 @@
 
 <div>
   This month's book: 
-  <% book = BookSuggestion.find_by(google_book_id: @this_months_book.google_book_id) %>
-  <%= book.title %>
+  <% if @this_months_book %>
+    <% book = BookSuggestion.find_by(google_book_id: @this_months_book.google_book_id) %>
+    <%= book.title %>
+  <% end %>
 </div> 
 
 <div>
   Next month's book: 
-  <% book = BookSuggestion.find_by(google_book_id: @next_months_book.google_book_id) %>
-  <%= book.title %>
+  <% if @next_months_book %>
+    <% book = BookSuggestion.find_by(google_book_id: @next_months_book.google_book_id) %>
+    <%= book.title %>
+  <% end %>
 </div>
 
 <div>

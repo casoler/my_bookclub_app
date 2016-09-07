@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
 
   get '/groups/:group_id/book_suggestions'     => 'book_suggestions#index'
   get '/groups/:group_id/book_suggestions/new' => 'book_suggestions#new'
@@ -8,9 +8,15 @@ Rails.application.routes.draw do
   get '/groups'               => 'groups#index'
   get '/groups/new'           => 'groups#new'
   post '/groups'              => 'groups#create'
-  post '/groups/:id/add_member' => 'groups#add_member'
-  get '/groups/:group_id/books' => 'books#index'
   get '/groups/:id'           => 'groups#show'
+  get '/groups/:id/edit'      => 'groups#edit'
+  patch '/groups/:id'         => 'groups#update'
+
+  post '/groups/:id/add_member'  => 'groups#add_member'
+  get '/groups/:group_id/books'  => 'books#index'
+
+  get '/meetings/new'         => 'meetings#new'
+  post '/meetings'            => 'meetings#create'
 
   namespace :api do
     namespace :v1 do

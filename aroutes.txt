@@ -1,0 +1,25 @@
+           Prefix Verb   URI Pattern                                      Controller#Action
+                  GET    /groups/:group_id/book_suggestions(.:format)     book_suggestions#index
+                  GET    /groups/:group_id/book_suggestions/new(.:format) book_suggestions#new
+                  POST   /groups/:group_id/book_suggestions(.:format)     book_suggestions#create
+           groups GET    /groups(.:format)                                groups#index
+       groups_new GET    /groups/new(.:format)                            groups#new
+                  POST   /groups(.:format)                                groups#create
+                  GET    /groups/:id(.:format)                            groups#show
+                  GET    /groups/:id/edit(.:format)                       groups#edit
+                  PATCH  /groups/:id(.:format)                            groups#update
+                  POST   /groups/:id/add_member(.:format)                 groups#add_member
+                  GET    /groups/:group_id/books(.:format)                books#index
+     meetings_new GET    /meetings/new(.:format)                          meetings#new
+         meetings POST   /meetings(.:format)                              meetings#create
+api_v1_book_votes POST   /api/v1/book_votes(.:format)                     api/v1/book_votes#create
+                  DELETE /api/v1/book_votes(.:format)                     api/v1/book_votes#destroy
+            books GET    /books(.:format)                                 books#index
+   selected_books POST   /selected_books(.:format)                        selected_books#create
+       book_votes GET    /book_votes(.:format)                            book_votes#index
+           signup GET    /signup(.:format)                                users#new
+            users POST   /users(.:format)                                 users#create
+                  GET    /users/:id(.:format)                             users#show
+            login GET    /login(.:format)                                 sessions#new
+                  POST   /login(.:format)                                 sessions#create
+           logout GET    /logout(.:format)                                sessions#destroy

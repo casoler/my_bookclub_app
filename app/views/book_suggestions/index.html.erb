@@ -1,30 +1,34 @@
 <div ng-controller="bookSuggestionCtrl">
   <h3><%= @group.name %></h3>
 
-  <h4>This month's suggestions</h4>
+  <h4>Next month's suggestions</h4>
   <h5> (Select at least one!) </h5>
 
-  <% @book_suggestions.each do |suggestion| %>
-    <div class='row'>
-      Title: <%= suggestion.title %>  
-    </div>
-    <div class='row'>
-      <%= image_tag("#{suggestion.image_url}", width: '100') %>
-    </div>
-    <div class='row'>
-      Author(s): <%= suggestion.author %>
-    </div>
-    <div class='row'>
-      <%= suggestion.description %>
-    </div>
+  <% unless @book_suggestions.empty? %>
+    <% @book_suggestions.each do |suggestion| %>
+      <div class='row'>
+        Title: <%= suggestion.title %>  
+      </div>
+      <div class='row'>
+        <%= image_tag("#{suggestion.image_url}", width: '100') %>
+      </div>
+      <div class='row'>
+        Author(s): <%= suggestion.author %>
+      </div>
+      <div class='row'>
+        <%= suggestion.description %>
+      </div>
 
-    <% book_vote = BookVote.find_by(member_id: @member.id, google_book_id: suggestion.google_book_id) %>
-    <div ng-click="setVote(<%= @member.id %>, <%= @member.group.id %>, '<%= suggestion.google_book_id %>')">
-      <%= label_tag 'Read next month?' %>
-      <%= check_box_tag "Read next month?", !book_vote.nil?, !book_vote.nil? %>
-    </div>
+      <% book_vote = BookVote.find_by(member_id: @member.id, google_book_id: suggestion.google_book_id) %>
+      <div ng-click="setVote(<%= @member.id %>, <%= @member.group.id %>, '<%= suggestion.google_book_id %>')">
+        <%= label_tag 'Read next month?' %>
+        <%= check_box_tag "Read next month?", !book_vote.nil?, !book_vote.nil? %>
+      </div>
 
-    <br/>
+      <br/>
+    <% end %>
+  <% else %>
+    Nothing selected for next month yet
   <% end %>
 </div>
 

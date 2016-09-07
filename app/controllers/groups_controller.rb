@@ -7,12 +7,13 @@ class GroupsController < ApplicationController
 
   def new
     @group = Group.new
+    @genres = Genre.all
   end
 
   def create
     @group = Group.new(
       name: params[:name],
-      genres: params[:genres],
+      # genres: params[:genres],
       about: params[:about],
       city: params[:city],
       state: params[:state],
@@ -34,25 +35,24 @@ class GroupsController < ApplicationController
         flash[:success] = "Group created, but you weren't added to the group.  Please join group."
         redirect_to "/groups/#{@group.id}/add_member"
       end
+
+      params[:genres].each do |genre|
+        GroupGenre.create(
+          group_id: @group.id,
+          genre_id: genre
+        )
+      end
+
     else
       flash[:warning] = 'Group not created.'
       render '/new'
     end
   end
 
-  # def add_book
-  #   @past_book = SelectedBook.new(
-  #     group_id: params[:group_id],
-  #     book_id: params[:book_id]
-  #   )
-
-  #   @past_book.save
-  #   redirect_to "/groups/#{params[:group_id]}"
-  # end
-
   def show
     @group = Group.find_by(id: params[:id])
     @member = Member.find_by(user_id: current_user.id, group_id: params[:id])
+    @group_genres = GroupGenre.where(group_id: @group.id)
 
     this_month = Time.now
     next_month = this_month + 1.month
@@ -61,6 +61,34 @@ class GroupsController < ApplicationController
     @this_months_book = @group_books.find_by(month: this_month.month, year: this_month.year)
     @next_months_book = @group_books.find_by(month: next_month.month, year: next_month.year)
   end
+
+  def edit
+    @group = Group.find_by(id: params[:id])
+    @genres = Genre.all
+    @group_genres = GroupGenre.where(group_id: @group.id)
+  end
+
+  def update
+    @group = Group.find_by(id: params[:id])
+    
+
+    if @group.update(
+      name: params[:name],
+      about: params[:about],
+      city: params[:city],
+      state: params[:state]
+      )
+
+      replace_group_leader(params[:leader_flag])
+      replace_group_genres(params[:genres])
+
+      flash[:success] = "Group successfully updated!"
+      redirect_to "/groups/#{@group.id}"
+    else 
+      render 'edit'
+    end
+  end
+
 
   def add_member
     @group = Group.find_by(id: params[:id])
@@ -78,4 +106,37 @@ class GroupsController < ApplicationController
       render '/groups'
     end
   end
+
+  
+
+  private
+
+    def replace_group_leader(leader_flag)
+      input_leader_flag = leader_flag == 'true' ? true : false
+
+      @members = @group.members
+      group_leader = @members.find_by(leader_flag: true)
+      current_member = @members.find_by(user_id: current_user.id)
+
+      if current_member == group_leader && input_leader_flag == false
+        group_leader.leader_flag = nil
+        group_leader.save
+      elsif current_member != group_leader && input_leader_flag == true
+        current_member.leader_flag = true
+        current_member.save
+      end
+    end
+
+    def replace_group_genres(new_genres)
+      @group_genres = GroupGenre.where(group_id: @group.id).each do |group_genre|
+        group_genre.destroy
+      end
+
+      new_genres.each do |genre|
+        GroupGenre.create(
+          group_id: @group.id,
+          genre_id: genre
+        )
+      end
+    end
 end

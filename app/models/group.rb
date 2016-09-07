@@ -3,6 +3,8 @@ class Group < ApplicationRecord
   has_many :users, through: :members
   has_many :selected_books
   has_many :book_suggestions
+  has_many :genres
+  has_many :meetings
 
   validates :name, presence: true
   validates :name, uniqueness: true
@@ -24,5 +26,9 @@ class Group < ApplicationRecord
 
   def is_member?(user)
     members.where(user_id: user.id).count == 1
+  end
+
+  def send_emails
+    members
   end
 end
