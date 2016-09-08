@@ -1,18 +1,43 @@
 <p>
-  <h4>My Groups:</h4>
+  <table> 
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>About</th>
+        <th>Genres</th>
+        <th>Locations</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>My Groups:</td>
+      </tr>
+      <% @my_groups.each do |group| %>
+        <tr>
+          <td></td>
+          <td><%= link_to group.name, "/groups/#{group.id}" %></td>
+          <td><%= group.about %></td>
+          <td><%= group.genres.collect{|genre| genre.genre}.join(", ") %></td>
+          <td><%= group.city %>, <%= group.state %></td>
+        </tr>
+      <% end %>
 
-  <% @my_groups.each do |group| %>
-    <h5><%= link_to group.name, "/groups/#{group.id}" %></h5>
-  <% end %>
-</p>
+      <tr>
+        <td>Other Groups:</td>
+      </tr>
 
-<p>
-  <h4>Other Groups:</h4>
-
-  <% @other_groups.each do |group| %>
-    <h5><%= link_to group.name, "/groups/#{group.id}" %></h5>
-    <%#= link_to 'Join', "/groups/#{group.id}/add_member", method: :post %>
-  <% end %>
+      <% @other_groups.each do |group| %>
+        <tr>
+          <td></td>
+          <td><%= group.name %> <%= link_to 'Join', "/groups/#{group.id}/add_member", method: :post %></td>
+          <td><%= group.about %></td>
+          <td><%= group.genres.collect{|genre| genre.genre}.join(", ") %></td>
+          <td><%= group.city %>, <%= group.state %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </p>
 
 <p>

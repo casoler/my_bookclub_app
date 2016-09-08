@@ -12,6 +12,8 @@
                   GET    /groups/:group_id/books(.:format)                books#index
      meetings_new GET    /meetings/new(.:format)                          meetings#new
          meetings POST   /meetings(.:format)                              meetings#create
+                  GET    /meetings/:id/edit(.:format)                     groups#edit
+                  PATCH  /meetings/:id(.:format)                          groups#update
 api_v1_book_votes POST   /api/v1/book_votes(.:format)                     api/v1/book_votes#create
                   DELETE /api/v1/book_votes(.:format)                     api/v1/book_votes#destroy
             books GET    /books(.:format)                                 books#index

@@ -12,7 +12,7 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(
-      name: params[:name],
+      name: params[:name].titleize,
       # genres: params[:genres],
       about: params[:about],
       city: params[:city],
@@ -53,27 +53,28 @@ class GroupsController < ApplicationController
     @group = Group.find_by(id: params[:id])
     @member = Member.find_by(user_id: current_user.id, group_id: params[:id])
     @group_genres = GroupGenre.where(group_id: @group.id)
+    @meetings = @group.meetings
 
-    this_month = Time.now
-    next_month = this_month + 1.month
-    @group_books = @group.selected_books.order(:year, :month)
-    @past_books = @group_books.find_all {|book| book.month < this_month.month && book.year <= this_month.year}
-    @this_months_book = @group_books.find_by(month: this_month.month, year: this_month.year)
-    @next_months_book = @group_books.find_by(month: next_month.month, year: next_month.year)
+    # this_month = Time.now
+    # next_month = this_month + 1.month
+    # @group_books = @group.selected_books.order(:year, :month)
+    # @past_books = @group_books.find_all {|book| book.month < this_month.month && book.year <= this_month.year}
+    # @this_months_book = @group_books.find_by(month: this_month.month, year: this_month.year)
+    # @next_months_book = @group_books.find_by(month: next_month.month, year: next_month.year)
   end
 
   def edit
     @group = Group.find_by(id: params[:id])
+    @member = Member.find_by(user_id: current_user.id, group_id: params[:id])
     @genres = Genre.all
     @group_genres = GroupGenre.where(group_id: @group.id)
   end
 
   def update
     @group = Group.find_by(id: params[:id])
-    
 
     if @group.update(
-      name: params[:name],
+      name: params[:name].titleize,
       about: params[:about],
       city: params[:city],
       state: params[:state]
@@ -99,6 +100,7 @@ class GroupsController < ApplicationController
 
     if @member
       flash[:success] = "You've successfully joined the #{@group.name} group"
+      BookClubMailer.welcome_email(@member).deliver
       redirect_to "/groups/#{@group.id}"
     else
       flash[:warning] =

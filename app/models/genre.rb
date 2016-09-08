@@ -1,3 +1,4 @@
 class Genre < ApplicationRecord
-  has_many :groups
+  has_many :group_genres
+  has_many :groups, through: :group_genres
 end

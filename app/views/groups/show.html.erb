@@ -1,14 +1,16 @@
 <h3><%= @group.name %></h3>
 
-<%= link_to 'Edit', "/groups/#{@group.id}/edit" %>
+<% if @member.group_leader? %>
+  <%= link_to 'Edit', "/groups/#{@group.id}/edit" %>
+<% end %>
 
 <p>
   Leader: 
-    <% if @member.group_leader? %>
-      <%= @member.user.first_name %> <%= @member.user.last_name %>
-    <% else %>
-      No Leader
-    <% end %>
+  <% if @group.group_leader %>
+    <%= @group.group_leader.user.first_name %> <%= @group.group_leader.user.last_name %>
+  <% else %>
+    No Leader
+  <% end %>
 </p>
 
 <p>
@@ -40,7 +42,7 @@
     <br/>
     <%= link_to "Select next month's book", book_votes_path(group_id: @group.id) %>
     <br/>
-    <%= link_to "Set up next month's meeting", meetings_new_path(group_id: @group.id) %>
+    <%= link_to "Set up next month's meeting", meetings_new_path(id: @group.id) %>
   <% end %>
 </div>
 
@@ -50,25 +52,27 @@
 
 <div>
   This month's book: 
-  <% if @this_months_book %>
-    <% book = BookSuggestion.find_by(google_book_id: @this_months_book.google_book_id) %>
+  <% if @group.this_months_book %>
+    <% book = BookSuggestion.find_by(google_book_id: @group.this_months_book.google_book_id) %>
     <%= book.title %>
   <% end %>
+  <%= link_to @group.meetings[-2].location, "/meetings/#{@group.meetings[-2].id}/edit" %>
 </div> 
 
 <div>
   Next month's book: 
-  <% if @next_months_book %>
-    <% book = BookSuggestion.find_by(google_book_id: @next_months_book.google_book_id) %>
+  <% if @group.next_months_book %>
+    <% book = BookSuggestion.find_by(google_book_id: @group.next_months_book.google_book_id) %>
     <%= book.title %>
   <% end %>
+  <%= link_to @group.meetings[-1].location, "/meetings/#{@group.meetings[-1].id}/edit" %>
 </div>
 
 <div>
   Past Books:
-  <% @past_books.each do |past_book| %>
+  <% @group.past_books.each do |past_book| %>
     <br/>
     <% book = BookSuggestion.find_by(google_book_id: past_book.google_book_id) %>
-    <%= book.title %>
+    <%= past_book.month %>/<%= past_book.year %> <%= book.title %>
   <% end %>
 </div>

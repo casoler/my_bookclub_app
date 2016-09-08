@@ -9,10 +9,9 @@
   <div>
     <h4>Are you the leader for this group?</h4>
     <%= label_tag :leader_flag, 'Yes' %>
-
-    <%= radio_button_tag :leader_flag, true %>
+    <%= radio_button_tag :leader_flag, true, @member == @group.group_leader %>
     <%= label_tag :leader_flag, 'No' %>
-    <%= radio_button_tag :leader_flag, false %>
+    <%= radio_button_tag :leader_flag, false, @member != @group.group_leader %>
   </div>
 
   <div>
