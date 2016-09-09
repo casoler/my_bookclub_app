@@ -54,13 +54,6 @@ class GroupsController < ApplicationController
     @member = Member.find_by(user_id: current_user.id, group_id: params[:id])
     @group_genres = GroupGenre.where(group_id: @group.id)
     @meetings = @group.meetings
-
-    # this_month = Time.now
-    # next_month = this_month + 1.month
-    # @group_books = @group.selected_books.order(:year, :month)
-    # @past_books = @group_books.find_all {|book| book.month < this_month.month && book.year <= this_month.year}
-    # @this_months_book = @group_books.find_by(month: this_month.month, year: this_month.year)
-    # @next_months_book = @group_books.find_by(month: next_month.month, year: next_month.year)
   end
 
   def edit
