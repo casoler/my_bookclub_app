@@ -1,42 +1,50 @@
-<h1>Signup!</h1>
+<div class="col s12 m4">
+  <div class="icon-block">
+    <h2 class="center brown-text"><i class="material-icons">group</i></h2>
+    <h5>Signup!</h5>
 
-<% if @user.errors.any? %>
-  <div id='error_explanation'>
-    <h2><%= pluralize(@user.errors.count, 'error') %> prohibited your information from being saved:</h2>
+    <% if @user.errors.any? %>
+      <div id='error_explanation'>
+        <h6><%= pluralize(@user.errors.count, 'error') %> prohibited your information from being saved:</h6>
 
-    <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-<%= form_tag '/users', method: :post do  %>
-  <div>
-    <%= label_tag :first_name %>
-    <%= text_field_tag :first_name, @user.first_name %>
-  </div>
-  <div>
-    <%= label_tag :last_name %>
-    <%= text_field_tag :last_name, @user.last_name %>
-  </div>
-  <div>
-    <%= label_tag :email %>
-    <%= text_field_tag :email, @user.email %>
-  </div>
-  <div>
-    <%= label_tag :zip_code %>
-    <%= text_field_tag :zip_code, @user.zip_code %>
-  </div>
-  <div>
-    <%= label_tag :password %>
-    <%= password_field_tag :password %>
-  </div>
-  <div>
-    <%= label_tag :password_confirmation %>
-    <%= password_field_tag :password_confirmation %>
-  </div>
-  <%= submit_tag "Submit" %>
-<% end %>
+    <%= form_tag '/users', method: :post do  %>
+      <div>
+        <%= label_tag :first_name %>
+        <%= text_field_tag :first_name, @user.first_name %>
+      </div>
+      <div>
+        <%= label_tag :last_name %>
+        <%= text_field_tag :last_name, @user.last_name %>
+      </div>
+      <div>
+        <%= label_tag :email %>
+        <%= text_field_tag :email, @user.email %>
+      </div>
+      <div>
+        <%= label_tag :zip_code %>
+        <%= text_field_tag :zip_code, @user.zip_code %>
+      </div>
+      <div>
+        <%= label_tag :password %>
+        <%= password_field_tag :password %>
+      </div>
+      <div>
+        <%= label_tag :password_confirmation %>
+        <%= password_field_tag :password_confirmation %>
+      </div>
+      <%= submit_tag "Submit" %>
+    <% end %>
+
+    <h6>Have an account?</h6>
+    <%= link_to 'Log In', '/login' %>
+  </div>  
+</div>
 

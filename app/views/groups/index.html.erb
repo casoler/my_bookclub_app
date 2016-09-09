@@ -1,47 +1,53 @@
-<p>
-  <table> 
-    <thead>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>About</th>
-        <th>Genres</th>
-        <th>Locations</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>My Groups:</td>
-      </tr>
-      <% @my_groups.each do |group| %>
-        <tr>
-          <td></td>
-          <td><%= link_to group.name, "/groups/#{group.id}" %></td>
-          <td><%= group.about %></td>
-          <td><%= group.genres.collect{|genre| genre.genre}.join(", ") %></td>
-          <td><%= group.city %>, <%= group.state %></td>
-        </tr>
-      <% end %>
+<div class="col s12 m12">
+  <div class="icon-block">
+    <h2 class="center brown-text"><i class="material-icons">group</i></h2>
+    <h5>Groups</h5>
 
-      <tr>
-        <td>Other Groups:</td>
-      </tr>
+    <p>
+      <table> 
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>About</th>
+            <th>Genres</th>
+            <th>Locations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>My Groups:</td>
+          </tr>
+          <% @my_groups.each do |group| %>
+            <tr>
+              <td></td>
+              <td><%= link_to group.name, "/groups/#{group.id}" %></td>
+              <td><%= group.about %></td>
+              <td><%= group.genres.collect{|genre| genre.genre}.join(", ") %></td>
+              <td><%= group.city %>, <%= group.state %></td>
+            </tr>
+          <% end %>
 
-      <% @other_groups.each do |group| %>
-        <tr>
-          <td></td>
-          <td><%= group.name %> <%= link_to 'Join', "/groups/#{group.id}/add_member", method: :post %></td>
-          <td><%= group.about %></td>
-          <td><%= group.genres.collect{|genre| genre.genre}.join(", ") %></td>
-          <td><%= group.city %>, <%= group.state %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</p>
+          <tr>
+            <td>Other Groups:</td>
+          </tr>
 
-<p>
-  <h4>Create a new Group</h4>
-  <%= link_to 'Create a New Group', "/groups/new" %>
-</p>
+          <% @other_groups.each do |group| %>
+            <tr>
+              <td></td>
+              <td><%= group.name %> <%= link_to('Join', "/groups/#{group.id}/add_member", method: :post) %></td>
+              <td><%= group.about %></td>
+              <td><%= group.genres.collect{|genre| genre.genre}.join(", ") %></td>
+              <td><%= group.city %>, <%= group.state %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </p>
+
+    <p>
+      <%= link_to 'Create a New Group', "/groups/new" %>
+    </p>
+  </div>
+</div>
 

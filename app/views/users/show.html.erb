@@ -1,19 +1,24 @@
-<h3><%= @user.first_name %> <%= @user.last_name %></h3>
+<div class="col s12 m12">
+  <div class="icon-block">
+    <h2 class="center brown-text"><i class="material-icons">group</i></h2>
+    <h5><%= @user.first_name %> <%= @user.last_name %></h5>
 
-<div>
-  Email: <%= @user.email %>
-  Zip Code: <%= @user.zip_code %>
+    <div>
+      Email: <%= @user.email %>
+      Zip Code: <%= @user.zip_code %>
+    </div>
+
+    <div>
+      Current groups: 
+      <% @user.groups.each do |group| %>
+        <p><%= group.name %></p>
+        <p><%= Member.get_leader(group) && (Member.get_leader(group).user == @user) %></p>
+      <% end %>
+    </div>
+
+    <%= link_to 'Join a New Group', '/groups' %>
+  </div>  
 </div>
-
-<div>
-  Current groups: 
-  <% @user.groups.each do |group| %>
-    <p><%= group.name %></p>
-    <p><%= Member.get_leader(group) && (Member.get_leader(group).user == @user) %></p>
-  <% end %>
-</div>
-
-<%= link_to 'Join a New Group', '/groups' %>
 
 
 

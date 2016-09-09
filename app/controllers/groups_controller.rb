@@ -92,6 +92,7 @@ class GroupsController < ApplicationController
 
 
   def add_member
+    binding.pry
     @group = Group.find_by(id: params[:id])
     @member = @group.add_member(
       user_id: current_user.id,

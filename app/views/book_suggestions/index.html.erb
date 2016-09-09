@@ -1,8 +1,8 @@
 <div ng-controller="bookSuggestionCtrl">
-  <h3><%= @group.name %></h3>
+  <h5><%= @group.name %></h5>
 
-  <h4>Next month's suggestions</h4>
-  <h5> (Select at least one!) </h5>
+  <h6>Next month's suggestions</h6>
+  <h7> (Select at least one!) </h7>
 
   <% unless @book_suggestions.empty? %>
     <% @book_suggestions.each do |suggestion| %>

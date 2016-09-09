@@ -1,4 +1,4 @@
-<h1>Edit <%= @group.name %></h1>
+<h5>Edit <%= @group.name %></h5>
 
 <%= form_tag "/groups/#{@group.id}", method: 'patch' do %>
   <div>
@@ -7,7 +7,7 @@
   </div>
 
   <div>
-    <h4>Are you the leader for this group?</h4>
+    <h6>Are you the leader for this group?</h6>
     <%= label_tag :leader_flag, 'Yes' %>
     <%= radio_button_tag :leader_flag, true, @member == @group.group_leader %>
     <%= label_tag :leader_flag, 'No' %>
