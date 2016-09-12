@@ -1,21 +1,39 @@
 <h5>Edit a Meeting</h5>
 
 <%= form_tag "/meetings/#{@meeting.id}", method: :patch do %>
-  <div>
-    Location:
-    <%= text_field_tag :location, @meeting.location, placeholder: 'Location' %>
+  <div class='row'>
+    <div class="input-field col s6">
+      Location:
+      <%= text_field_tag :location, @meeting.location, placeholder: 'Location' %>
+    </div>
   </div>
 
-  <div>
-    Address:
-    <%= text_field_tag :address, @meeting.address, placeholder: 'Address' %><br/>
-    <%= text_field_tag :city, @meeting.city, placeholder: 'City' %>, <%= text_field_tag :state, @meeting.state, placeholder: 'State' %> <%= text_field_tag :zip, @meeting.zip, placeholder: 'Zip Code' %>
+  <div class='row'>
+    <div class="input-field col s6">
+      Address:
+      <%= text_field_tag :address, @meeting.address, placeholder: 'Address' %><br/>
+    </div>
   </div>
 
-  <div>
-    Date and Time:
-    <%= datetime_local_field_tag :meeting_date, @meeting.meeting_date, order: [:month, :day, :year] %>
-    <%#= time_select :time, @meeting.time %>
+  <div class='row'>
+    <div class="input-field col s3">
+      <%= text_field_tag :city, @meeting.city, placeholder: 'City' %>
+    </div>
+    <div class="input-field col s2">
+      <%= text_field_tag :state, @meeting.state, placeholder: 'State' %> 
+    </div>
+    <div class="input-field col s1">
+      <%= text_field_tag :zip, @meeting.zip, placeholder: 'Zip Code' %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class="input-field col s3">
+      
+      Date and Time:
+      <input type="date" class="datepicker">
+      <%= time_field_tag :meeting_date, @meeting.meeting_date, order: [:month, :day, :year] %>
+    </div>
   </div>
 
   <div>
@@ -25,11 +43,16 @@
 
   <div>
     Send an email to all members?
-    <%= label_tag :send_email_flag, 'Yes' %>
-    <%= radio_button_tag :send_email_flag, true %>
-    <%= label_tag :send_email_flag, 'No' %>
-    <%= radio_button_tag :send_email_flag, false %>
+    <input type="checkbox" id="send_email" name='send_email' value=false  />
+    <label for="send_email">Select</label>
   </div>
    
   <%= submit_tag "Update Meeting" %>
 <% end %>
+
+<script>
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+  });
+</script>

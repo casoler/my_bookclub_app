@@ -1,15 +1,26 @@
-<h5>Set Up a Meeting</h5>
+<h5><%= @group.name %></h5>
+
+<h6><u>Set Up a Meeting</u></h6>
 
 <%= form_tag '/meetings', method: :post do %>
-  <div>
+  <div class="input-field col s6">
     Location:
     <%= text_field_tag :location, @meeting.location, placeholder: 'Location' %>
   </div>
 
-  <div>
+  <div class="input-field col s6">
     Address:
     <%= text_field_tag :address, @meeting.address, placeholder: 'Address' %><br/>
+  </div>
+  <div class="input-field col s3">
     <%= text_field_tag :city, @meeting.city, placeholder: 'City' %>, <%= text_field_tag :state, @meeting.state, placeholder: 'State' %> <%= text_field_tag :zip, @meeting.zip, placeholder: 'Zip Code' %>
+  </div>
+  <div class="input-field col s2">
+    <%= text_field_tag :state, @meeting.state, placeholder: 'State' %> 
+  </div>
+  <div class="input-field col s1">
+    <%= text_field_tag :zip, @meeting.zip, placeholder: 'Zip Code' %>
+  </div>
   </div>
 
   <div>

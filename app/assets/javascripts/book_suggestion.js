@@ -7,15 +7,14 @@
     // $scope.message = "Hello world!";
     $scope.anotherMessage = "Goodbye world!";
 
-    $scope.setVote = function(member_id, group_id, google_book_id) {
+    $scope.setVote = function(member_id, group_id, isbn) {
       var params = {
         member_id: member_id,
         group_id: group_id,
-        google_book_id: google_book_id
+        isbn: isbn
       };
-      console.log('setVote', params);
       $http.post('/api/v1/book_votes.json', params).then(function(response) {
-        console.log(response.data);
+        console.log('hello again');
       });
     };
 

@@ -1,0 +1,17 @@
+<h5>Reviews for <%= @result["book"]["title"] %> </h5>
+
+<% @result["book"]["critic_reviews"].each do |review| %>
+  <div class="card horizontal">
+    <div class="card-image" style="margin:15px">
+      <h6><b><%= "*" * review["star_rating"].to_i %></b></h6>
+    </div>
+    <div class="card-content">  
+      <%= review["review_date"] %><br/>
+      Source: <%= review["source"] %><br/>
+      <%= link_to 'Review Link', review["review_link"], target: "_blank" %><br/>
+      <%= review["snippet"] %>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to 'Back', books_path(member_id: @member.id) %>

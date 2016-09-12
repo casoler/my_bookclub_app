@@ -1,12 +1,17 @@
-<%= form_tag '/selected_books' do %>
+<h5><%= @group.name %></h5>
 
+<h6>Select Next Month's Book</h6>
+
+<%= form_tag '/selected_books' do %>
   <%= hidden_field_tag 'group_id', @group.id %>
-  <% @books.each do |book| %>
+  <% @books.sort_by{|book| book[:votes]}.reverse.each do |book| %>
     <p>
-      <%= radio_button_tag 'google_book_id', book[:google_book_id] %>
-      <%= book[:title] %>
-      <%= book[:author] %>
-      <%= book[:votes] %>
+      <input type="radio" id="isbn_<%= book[:isbn] %>" value="<%= book[:isbn] %>" name="isbn" />
+      <label for="isbn_<%= book[:isbn] %>">
+        <%= book[:title] %><br/>
+        <%= book[:author] %><br/>
+        <%= book[:votes] %>
+      </label>
     </p>
   <% end %>
   <%= submit_tag 'Select' %>

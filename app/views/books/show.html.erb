@@ -1,0 +1,12 @@
+<div class='row'>
+  <h5>Title: <%= @book.title %></h5>
+</div>
+<div class='row'>
+  <%= image_tag("#{@book.image_link}", width: '100') %>
+</div>
+<div class='row'>
+  Author(s): <%= @book.authors %>
+</div>
+<div class='row'>
+  <%= @book.description %>
+</div>

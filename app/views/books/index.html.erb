@@ -1,41 +1,40 @@
-Select books for next month:
+<h5>Select books for next month:</h5>
 
-<!-- <table>
-  <tr>
-    <th>Select</th>
-    <th>Title</th>
-    <th>Authors</th>
-  </tr> -->
+<%= form_tag "/groups/#{@member.group.id}/book_suggestions" do  %>
+  <% @books.each do |book| %>
+    
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="<%= book["image_url"] %>">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <h6><%= book["title"] %></h6>
 
+          <div class="card-content">
+            Author: <%= book["author"] %><br/>
+            <%= book["description"] %>
+          </div>
 
+          <div>
+            <%= link_to controller: "books", action: "idreambooks", id: book['isbn'], member_id: @member.id do %>
+              <%= image_tag('/idreambooks.jpg') %> Book Reviews
+            <% end %>
+          </div>
 
-  <%= form_tag "/groups/#{@member.group.id}/book_suggestions" do  %>
-    <% @books.each do |book| %>
-      <p>
-        <%= check_box_tag('book_suggestions[]', book.id, checked = false) %>
-        <%= label_tag book.title %>
-        <%= label_tag book.authors %>
-      </p>
-    <% end %>
-    <%= submit_tag 'Select' %>
+          <div class="card-action">
+            <p>
+              <input type="checkbox" id="book_suggestions_<%= book["isbn"] %>" name='book_suggestions[]' value='<%= book["isbn"] %>' />
+              <label for="book_suggestions_<%= book["isbn"] %>">Select</label>
+            </p>   
+          </div> 
+
+        </div>
+      </div>
+    </div>
   <% end %>
 
-
-<!-- 
-
-<%#= form_tag "/products/#{@product.id}/images", method: 'post' do %>
-  <div  class="form-group">
-    <%#= label_tag :url %>
-    <%#= text_field_tag :url, '', class: 'form-control' %>
-  </div>
-
-  <div  class="form-group">
-    <%#= label_tag :product_id %>
-    <%#= text_field_tag :product_id, params[:product_id], class: 'form-control' %>
-  </div>
-  
-  <div>
-    <%#= submit_tag 'Add the Image', class: "btn btn-default"%>
-  </div>
-<%# end %>
- -->
+  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+    <i class="material-icons right">send</i>
+  </button>
+<% end %>

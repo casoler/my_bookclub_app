@@ -1,6 +1,25 @@
 <div class='row'>
-  <div class="col s12 m3 center"></div>
-  <div class="col s12 m6 center">
+  <div class="col s12 m4">
+    <ul style='margin-top:120px'>  
+      <% if @member.group_leader? %>
+        <li class="collection-item avatar ">
+          <img class="responsive-img" width="50" src="/classic_book.jpg" style='margin-top:15px'>  <%= link_to "Make a suggestion list for next month's book", books_path(member_id: @member.id) %>
+        </li>
+        <li class="collection-item avatar">
+          <img class="responsive-img" width="50" src="/classic_book.jpg" style='margin-top:15px'>  <%= link_to "Select next month's book", book_votes_path(group_id: @group.id) %>
+        </li>
+        <li class="collection-item avatar">
+          <img class="responsive-img" width="50" src="/classic_book.jpg" style='margin-top:15px'>  <%= link_to "Set up next month's meeting", meetings_new_path(id: @group.id) %>
+        </li>
+      <% end %>
+
+      <li class="collection-item avatar">
+        <img class="responsive-img" width="50" src="/classic_book.jpg" style='margin-top:15px'>  <%= link_to "Vote for next month's book", "/groups/#{@group.id}/book_suggestions" %>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col s12 m5 ">
     <div class="icon-block">
       <h2 class="center brown-text"><i class="material-icons">group</i></h2>
       <h5><%= @group.name %></h5>
@@ -10,7 +29,7 @@
       <% end %>
 
       <p>
-        Leader: 
+        <h6>Leader: </h6>
         <% if @group.group_leader %>
           <%= @group.group_leader.user.first_name %> <%= @group.group_leader.user.last_name %>
         <% else %>
@@ -19,84 +38,76 @@
       </p>
 
       <p>
-        Location:
+        <h6>Location:</h6>
         <%= @group.city %>, <%= @group.state %>
       </p>
 
       <p>
-        Genres:
+        <h6>Genres:</h6>
         <% @group_genres.each do |group_genre| %>
-          <br/>
-          <%= group_genre.genre.genre %>
+          <%= group_genre.genre.genre %></br/>
         <% end %>
       </p>
+    </div>
+  </div>
 
-      <p>
+  <div class="col s12 m3 ">
+    <div class="icon-block">
+      <p style='margin-top:140px'>
         <div>
-          Members:
+          <h6><u>Members:</u></h6>
           <% @group.members.each do |member| %>
-            <%= member.user.first_name %>
-            <%= member.user.last_name %>
+            <div class="chip">
+              <img src="/reader.png" alt="Contact Person">
+              <%= member.user.first_name %> <%= member.user.last_name %>
+            </div>
+            <br/>
           <% end %>
         </div>
       </p>
-    </div>
-  
-    <ul>  
-      <% if @member.group_leader? %>
-        <li class="collection-item avatar">
-          <img class="responsive-img" width="50" src="/book_icon.jpg">  <%= link_to "Make a suggestion list for next month's book", books_path(member_id: @member.id) %>
-        </li>
-        <li class="collection-item avatar">
-          <img class="responsive-img" width="50" src="/book_icon.jpg">  <%= link_to "Select next month's book", book_votes_path(group_id: @group.id) %>
-        </li>
-        <li class="collection-item avatar">
-          <img class="responsive-img" width="50" src="/book_icon.jpg">  <%= link_to "Set up next month's meeting", meetings_new_path(id: @group.id) %>
-        </li>
-      <% end %>
-
-      <li class="collection-item avatar">
-        <img class="responsive-img" width="50" src="/book_icon.jpg">  <%= link_to "Vote for next month's book", "/groups/#{@group.id}/book_suggestions" %>
-      </li>
-    </ul>
+    </div>    
   </div>
 </div>
-  
-  <div class="col s12 m6">
-    <ul class="collection">
-      <% if @group.this_months_book %>
-        <% book = BookSuggestion.find_by(google_book_id: @group.this_months_book.google_book_id) %>
-        <li class="collection-item avatar">
-          <span class="title">This month's book: </span>
-          <p>
-            <img src="<%= book.image_url %>" alt="" width='35px'>  <%= book.title %><br/>
-            Meeting: <%= link_to @group.meetings[-2].location, "/meetings/#{@group.meetings[-2].id}/edit" %>
-            <a href="#!" class="secondary-content"><i class="material-icons">play_arrow</i></a>
-          </p>
-        </li>
-      <% end %>
 
-      <% if @group.next_months_book %>
-        <% book = BookSuggestion.find_by(google_book_id: @group.next_months_book.google_book_id) %>
-        <li class="collection-item avatar">
-          <span class="title">Next month's book: </span>
-          <p>
-            <img src="<%= book.image_url %>" alt="" width='35px'>  <%= book.title %><br/>
-            Meeting: <%= link_to @group.meetings[-1].location, "/meetings/#{@group.meetings[-1].id}/edit" %>
-            <a href="#!" class="secondary-content"><i class="material-icons">play_arrow</i></a>
-          </p>
-        </li>
-      <% end %>
-
-      <li class="collection-item avatar">
-        <span class="title">Past Books: </span>
-        <% @group.past_books.each do |past_book| %>
-          <p>
-            <% book = BookSuggestion.find_by(google_book_id: past_book.google_book_id) %>
-            <img src="<%= book.image_url %>" alt="" width='50px'><br/>
-            <%= past_book.month %>/<%= past_book.year %> <%= book.title %>
+<div class='row'>
+  <div class="col s12 m4"></div>
+  <div class="col s12 m8">
+    <h6><b>Books: Past, Present, and Future</b></h6>
+    <div style="margin-left:20px">
+      <ul>
+        <% if @group.this_months_book %>
+          <% book = BookSuggestion.find_by(isbn: @group.this_months_book.isbn) %>
+          <li>
+            <span class="title"><u>This month's book: </u></span>
+            <p>
+              <img src="<%= book.image_url %>" alt="" width='35px' style='margin-left: 15px'>  <%= link_to book.title, "/books/#{book.isbn}" %><br/>
+              Meeting: <%= link_to @group.meetings[-2].location, "/meetings/#{@group.meetings[-2].id}/edit" %>
+            </p>
+          </li>
         <% end %>
-      </li>
-    </ul>
+
+        <% if @group.next_months_book %>
+          <% book = BookSuggestion.find_by(isbn: @group.next_months_book.isbn) %>
+          <li>
+            <span class="title"><u>Next month's book: </u></span>
+            <p>
+              <img src="<%= book.image_url %>" alt="" width='35px' style='margin-left: 15px'>  
+              <%= link_to book.title, "/books/#{book.isbn}" %><br/>
+              Meeting: <%= link_to @group.meetings[-1].location, "/meetings/#{@group.meetings[-1].id}/edit" %>
+            </p>
+          </li>
+        <% end %>
+
+        <li>
+          <span class="title"><u>Past Books: </u></span>
+          <% @group.past_books.each do |past_book| %>
+            <p>
+              <% book = BookSuggestion.find_by(isbn: past_book.isbn) %>
+              <img src="<%= book.image_url %>" alt="" width='50px' style='margin-left: 15px'><br/>
+              <%= past_book.month %>/<%= past_book.year %> <%= link_to book.title, "/books/#{book.isbn}" %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

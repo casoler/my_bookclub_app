@@ -11,23 +11,27 @@ class BookSuggestionsController < ApplicationController
   def create
     @group_id = params[:group_id]
 
-    params[:book_suggestions].each do |suggestion|
-      book = GoogleBooks.search(suggestion).first
-      book_suggestion = BookSuggestion.new(
-        google_book_id: book.id,
-        group_id: @group_id,
-        title: book.title,
-        author: book.authors,
-        image_url: book.image_link,
-        description: book.description
-      )
+    params[:book_suggestions].each do |suggestion|  
+      suggested_book = BookSuggestion.find_by(group_id: @group_id, isbn: suggestion)
 
-      unless book_suggestion.save
-        flash[:error] = 'oops'
-        render '/book_suggestions' and return
+      if suggested_book.nil?
+        book = GoogleBooks.search(suggestion).first
+        book_suggestion = BookSuggestion.new(
+          isbn: suggestion,
+          group_id: @group_id,
+          title: book.title,
+          author: book.authors,
+          image_url: book.image_link,
+          description: book.description
+        )
+
+        unless book_suggestion.save
+          flash[:error] = 'oops'
+          render '/book_suggestions' and return
+        end
       end
     end
-    flash[:success] = 'hurray'
+    # flash[:success] = 'hurray'
     redirect_to "/groups/#{@group_id}/book_suggestions"
   end
 end

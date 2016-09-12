@@ -29,6 +29,10 @@ Rails.application.routes.draw do
   end
 
   get '/books'                => 'books#index'
+  get '/books/:id'            => 'books#show'
+  get '/books/nytimes/:id'    => 'books#nytimes'
+  get '/books/idreambooks/:id' => 'books#idreambooks'
+
   post '/selected_books'      => 'selected_books#create'
   get '/book_votes'           => 'book_votes#index'
 

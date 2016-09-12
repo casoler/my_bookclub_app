@@ -4,10 +4,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
 
-  <title>MyBookClubApp</title>
+  <title>My Book Club</title>
   <%= csrf_meta_tags %>
 
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="/js/materialize.js"></script>
@@ -21,7 +21,9 @@
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo">Logo</a>
+      <a id="logo-container" href="/groups" class="brand-logo">
+        <img src="/book_club.jpg" style="margin:10px;width:42px;height:42px;border:0;" >My Book Club
+      </a>
       <ul class="right hide-on-med-and-down">
         <% if current_user %>
           <li><%= current_user.email %></li>
@@ -43,13 +45,13 @@
           <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
         </div>
         <div class="row center">
-          <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+          <!-- <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a> -->
         </div>
         <br><br>
 
       </div>
     </div>
-    <div class="parallax"><img src="/2CBE641D00000578-3247877-image-a-1_1443167999288.jpg" alt="Unsplashed background img 1"></div>
+    <div class="parallax"><img src="/peabody.jpg" alt="Unsplashed background img 1"></div>
   </div>
 
 
@@ -110,7 +112,7 @@
         </div>
       </div>
     </div>
-    <div class="parallax"><img src="/2CBE644400000578-3247877-image-a-13_1443168064427.jpg" alt="Unsplashed background img 2"></div>
+    <div class="parallax"><img src="/paris_library.jpg" alt="Unsplashed background img 2"></div>
   </div>
 
   <div class="container">
@@ -136,7 +138,7 @@
         </div>
       </div>
     </div>
-    <div class="parallax"><img src="/2CBE61E000000578-3247877-image-a-28_1443168211863.jpg" alt="Unsplashed background img 3"></div>
+    <div class="parallax"><img src="/ultra_modern_library.jpg" alt="Unsplashed background img 3"></div>
   </div>
 
   <footer class="page-footer teal">

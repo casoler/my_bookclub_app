@@ -50,6 +50,7 @@ class GroupsController < ApplicationController
   end
 
   def show
+    binding.pry
     @group = Group.find_by(id: params[:id])
     @member = Member.find_by(user_id: current_user.id, group_id: params[:id])
     @group_genres = GroupGenre.where(group_id: @group.id)

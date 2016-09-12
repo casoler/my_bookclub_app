@@ -55,3 +55,8 @@ p {
 footer.page-footer {
   margin: 0;
 }
+
+/*[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+  opacity: 100;
+  left: 20px;
+}*/

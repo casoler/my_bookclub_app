@@ -6,13 +6,13 @@ class Api::V1::BookVotesController < ApplicationController
     @member = Member.find_by(id: params[:member_id])
     # @group = @member.group
 
-    @book_vote = BookVote.find_by(member_id: @member.id, google_book_id: params[:google_book_id])
+    @book_vote = BookVote.find_by(member_id: @member.id, isbn: params[:isbn])
 
     if @book_vote.nil?
       @book_vote = BookVote.new(
         member_id: @member.id,
         group_id: @member.group.id,
-        google_book_id: params[:google_book_id]
+        isbn: params[:isbn]
       )
 
       if @book_vote.save

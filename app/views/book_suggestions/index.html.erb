@@ -1,34 +1,43 @@
 <div ng-controller="bookSuggestionCtrl">
   <h5><%= @group.name %></h5>
+  <br/>
 
-  <h6>Next month's suggestions</h6>
-  <h7> (Select at least one!) </h7>
+  <h6><u>Vote for Next Month's Book (Select at least one!)</u></h6>
+  <br/>
 
   <% unless @book_suggestions.empty? %>
     <% @book_suggestions.each do |suggestion| %>
-      <div class='row'>
-        Title: <%= suggestion.title %>  
-      </div>
-      <div class='row'>
-        <%= image_tag("#{suggestion.image_url}", width: '100') %>
-      </div>
-      <div class='row'>
-        Author(s): <%= suggestion.author %>
-      </div>
-      <div class='row'>
-        <%= suggestion.description %>
-      </div>
+      <div class="card horizontal">
+        <div class="card-image">
+          <img src="<%= suggestion.image_url %>">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <h6><%= suggestion.title %></h6>
 
-      <% book_vote = BookVote.find_by(member_id: @member.id, google_book_id: suggestion.google_book_id) %>
-      <div ng-click="setVote(<%= @member.id %>, <%= @member.group.id %>, '<%= suggestion.google_book_id %>')">
-        <%= label_tag 'Read next month?' %>
-        <%= check_box_tag "Read next month?", !book_vote.nil?, !book_vote.nil? %>
-      </div>
+            <div class="card-content">
+              Author: <%= suggestion.author %><br/>
+              <%= suggestion.description %>
+            </div>
 
-      <br/>
+            <div class="card-action">
+              <% book_vote = BookVote.find_by(member_id: @member.id, isbn: suggestion.isbn) %>
+              <%= !book_vote.nil? %>
+              <p>
+                <div ng-click="setVote(<%= @member.id %>, <%= @member.group.id %>, '<%= suggestion.isbn %>')">
+                  <input type="checkbox" id="<%= suggestion.isbn %>" name='<%= suggestion.isbn %>' checked=<%= !book_vote.nil? %> value=<%= !book_vote.nil? %>  />
+                  <label for="<%= suggestion.isbn %>">Select</label>
+                </div>
+
+                
+
+              </p>   
+            </div>        
+          </div>
+        </div>
+      </div>
     <% end %>
   <% else %>
     Nothing selected for next month yet
   <% end %>
 </div>
-
