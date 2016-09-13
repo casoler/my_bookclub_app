@@ -1,47 +1,64 @@
-<h5><%= @group.name %></h5>
-
-<h6><u>Set Up a Meeting</u></h6>
+<div style="text-align: center;vertical-align: middle;line-height: 90px;">
+  <h5><%= @group.name %></h5>
+  <h6><u>Set Up a Meeting</u></h6>
+</div>
 
 <%= form_tag '/meetings', method: :post do %>
-  <div class="input-field col s6">
-    Location:
-    <%= text_field_tag :location, @meeting.location, placeholder: 'Location' %>
+  <div class='row'>
+    <h6>Book:</h6>
+    <div class="input-field col s6">
+      <%= link_to @selected_book.title, "/books/#{@selected_book.isbn}" %>
+    </div>
   </div>
 
-  <div class="input-field col s6">
-    Address:
-    <%= text_field_tag :address, @meeting.address, placeholder: 'Address' %><br/>
-  </div>
-  <div class="input-field col s3">
-    <%= text_field_tag :city, @meeting.city, placeholder: 'City' %>, <%= text_field_tag :state, @meeting.state, placeholder: 'State' %> <%= text_field_tag :zip, @meeting.zip, placeholder: 'Zip Code' %>
-  </div>
-  <div class="input-field col s2">
-    <%= text_field_tag :state, @meeting.state, placeholder: 'State' %> 
-  </div>
-  <div class="input-field col s1">
-    <%= text_field_tag :zip, @meeting.zip, placeholder: 'Zip Code' %>
-  </div>
+  <div class='row'>
+    <h6>Location:</h6>
+    <div class="input-field col s6">
+      <%= text_field_tag :location, @meeting.location, placeholder: 'Location' %>
+    </div>
   </div>
 
-  <div>
-    Date and Time:
-    <%= datetime_local_field_tag :meeting_date, @meeting.meeting_date, order: [:month, :day, :year] %>
-    <%#= time_select :time, @meeting.time %>
+  <div class='row'>
+    <h6>Address:</h6>
+    <div class="input-field col s5">
+      <%= text_field_tag :address, @meeting.address, placeholder: 'Address' %><br/>
+    </div>
+
+    <div class="input-field col s3">
+      <%= text_field_tag :city, @meeting.city, placeholder: 'City' %>
+    </div>
+
+    <div class="input-field col s2">
+      <%= text_field_tag :state, @meeting.state, placeholder: 'State' %> 
+    </div>
+    <div class="input-field col s1">
+      <%= text_field_tag :zip, @meeting.zip, placeholder: 'Zip Code' %>
+    </div>
   </div>
 
-  <div>
-    <%= label_tag 'Additional Info:' %>
-    <%= text_area_tag :notes, @meeting.notes %>
+  <div class='row'>
+    <h6>Date and Time:</h6>
+    <div class="input-field col s6">
+      <%= datetime_local_field_tag :meeting_date, @meeting.meeting_date, order: [:month, :day, :year] %>
+    </div>
   </div>
 
-  <div>
-    Send an email to all members?
-    <%= label_tag :send_email_flag, 'Yes' %>
-    <%= radio_button_tag :send_email_flag, true %>
-    <%= label_tag :send_email_flag, 'No' %>
-    <%= radio_button_tag :send_email_flag, false %>
+  <div class='row'>
+    <h6>Additional Info:</h6>
+    <div class="input-field col s6">
+      <%= text_area_tag :notes, @meeting.notes %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <h6>Send an email to all members?</h6>
+    <input name="send_email_flag" type="radio" id="send_email_flag_true" value=true />
+    <label for="send_email_flag_true">Yes</label>
+    <input name="send_email_flag" type="radio" id="send_email_flag_false" value=false />
+    <label for="send_email_flag_false">No</label>
   </div>
    
   <%= hidden_field_tag :id, @group.id %>
-  <%= submit_tag "Submit" %>
+  <%= hidden_field_tag :selected_book_id, @selected_book.id %>
+  <button class="btn waves-effect waves-light" type="submit" name="action">Schedule a Meeting</button>
 <% end %>

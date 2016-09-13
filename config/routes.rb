@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   post '/groups/:id/add_member'  => 'groups#add_member'
   get '/groups/:group_id/books'  => 'books#index'
 
+  get '/meetings'             => 'meetings#index'
   get '/meetings/new'         => 'meetings#new'
+  get '/meetings/:id'         => 'meetings#show'
   post '/meetings'            => 'meetings#create'
   get '/meetings/:id/edit'    => 'meetings#edit'
   patch '/meetings/:id'       => 'meetings#update'

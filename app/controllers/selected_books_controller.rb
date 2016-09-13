@@ -1,6 +1,5 @@
 class SelectedBooksController < ApplicationController
   def create
-    binding.pry
     next_month = Time.now + 1.month
 
     @selected_book = SelectedBook.find_by(group_id: params[:group_id], month: next_month.month, year: next_month.year)

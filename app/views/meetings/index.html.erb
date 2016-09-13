@@ -1,0 +1,25 @@
+<div class="col s12 m12">
+  <div class="icon-block">
+    <h2 class="center brown-text"><i class="material-icons">group</i></h2>
+
+    <div style="text-align: center;vertical-align: middle;line-height: 90px;">
+      <h5><%= @group.name %></h5>
+      <h6>Meetings</h6>
+    </div>
+  </div>
+</div>
+
+<div class="col s12 m12">
+  <% @meetings.each do |meeting| %>
+    <div class='row'>
+      <p>  
+        Book: <%= BookSuggestion.find_by(isbn: meeting.selected_book.isbn).title %><br/>
+        <%= meeting.meeting_date.strftime("%B %e, %Y at %k:%M %p") %><br/>
+        Location: <%= meeting.location %><br/>
+        Address: <%= meeting.address %><br/>
+        <%= meeting.city %> <%= meeting.state %> <%= meeting.zip %><br/>
+        Additional Info: <%= meeting.notes %> <br/>
+      </p>
+    </div>
+  <% end %>
+</div>

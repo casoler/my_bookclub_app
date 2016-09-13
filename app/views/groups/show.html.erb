@@ -16,6 +16,10 @@
       <li class="collection-item avatar">
         <img class="responsive-img" width="50" src="/classic_book.jpg" style='margin-top:15px'>  <%= link_to "Vote for next month's book", "/groups/#{@group.id}/book_suggestions" %>
       </li>
+      <li class="collection-item avatar">
+        <img class="responsive-img" width="50" src="/classic_book.jpg" style='margin-top:15px'>  <%= link_to "Show Meetings", meetings_path(group_id: @group.id) %>
+      </li>
+
     </ul>
   </div>
 
@@ -81,7 +85,7 @@
             <span class="title"><u>This month's book: </u></span>
             <p>
               <img src="<%= book.image_url %>" alt="" width='35px' style='margin-left: 15px'>  <%= link_to book.title, "/books/#{book.isbn}" %><br/>
-              Meeting: <%= link_to @group.meetings[-2].location, "/meetings/#{@group.meetings[-2].id}/edit" %>
+              Meeting: <%= link_to @group.meetings[-2].location, "/meetings/#{@group.meetings[-2].id}" %>
             </p>
           </li>
         <% end %>
@@ -93,7 +97,7 @@
             <p>
               <img src="<%= book.image_url %>" alt="" width='35px' style='margin-left: 15px'>  
               <%= link_to book.title, "/books/#{book.isbn}" %><br/>
-              Meeting: <%= link_to @group.meetings[-1].location, "/meetings/#{@group.meetings[-1].id}/edit" %>
+              Meeting: <%= link_to @group.meetings[-1].location, "/meetings/#{@group.meetings[-1].id}" %>
             </p>
           </li>
         <% end %>
@@ -110,4 +114,8 @@
       </ul>
     </div>
   </div>
+</div>
+
+<div class='row'>
+  <%= link_to 'Back to Groups Page', '/groups' %>
 </div>
