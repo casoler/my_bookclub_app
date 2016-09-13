@@ -18,7 +18,11 @@
         Location: <%= @meeting.location %><br/>
         Address: <%= @meeting.address %><br/>
         <%= @meeting.city %> <%= @meeting.state %> <%= @meeting.zip %><br/>
-        Additional Info: <%= @meeting.notes %> <br/>
+        Additional Info: <%= @meeting.notes %> <br/><br/>
+
+        <% if @latitude && @longitude %>
+          <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@latitude}%2C#{@longitude}" %>
+        <% end %>
       </p>
     </div>
 

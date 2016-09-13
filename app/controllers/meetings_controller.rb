@@ -12,6 +12,16 @@ class MeetingsController < ApplicationController
   end
 
   def create
+    # complete_address = "#{params[:address]} #{params[:city]}, #{params[:state]} #{params[:zip]}"
+    # coordinates = Geocoder.coordinates(complete_address)
+    # if coordinates
+    #   computed_latitude = coordinates[0]
+    #   computed_longitude = coordinates[1]
+    # else
+    #   computed_latitude = nil
+    #   computed_longitude = nil
+    # end
+
     @meeting = Meeting.new(
       group_id: params[:id],
       meeting_date: params[:meeting_date],
@@ -38,6 +48,17 @@ class MeetingsController < ApplicationController
 
   def show
     @meeting = Meeting.find_by(id: params[:id])
+
+    complete_address = "#{@meeting.address} #{@meeting.city}, #{@meeting.state} #{@meeting.zip}"
+    coordinates = Geocoder.coordinates(complete_address)
+    if coordinates
+      @latitude = coordinates[0]
+      @longitude = coordinates[1]
+    else
+      @latitude = nil
+      @longitude = nil
+    end
+    
     @group = @meeting.group
   end
 
