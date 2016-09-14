@@ -22,10 +22,9 @@
 
             <div class="card-action">
               <% book_vote = BookVote.find_by(member_id: @member.id, isbn: suggestion.isbn) %>
-              <%= !book_vote.nil? %>
               <p>
                 <div ng-click="setVote(<%= @member.id %>, <%= @member.group.id %>, '<%= suggestion.isbn %>')">
-                  <input type="checkbox" id="<%= suggestion.isbn %>" name='<%= suggestion.isbn %>' checked=<%= !book_vote.nil? %> value=<%= !book_vote.nil? %>  />
+                  <input type="checkbox" id="<%= suggestion.isbn %>" name='<%= suggestion.isbn %>' value=<%= !book_vote.nil? %>  />
                   <label for="<%= suggestion.isbn %>">Select</label>
                 </div>
               </p>   

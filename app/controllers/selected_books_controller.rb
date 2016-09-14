@@ -1,4 +1,9 @@
 class SelectedBooksController < ApplicationController
+  def index
+    @group = Group.find_by(id: params[:group_id])
+    @selected_books = SelectedBook.where(group_id: @group.id).sort_by{|book| [book.year, book.month]}.reverse
+  end
+
   def create
     next_month = Time.now + 1.month
 

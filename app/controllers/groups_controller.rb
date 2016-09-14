@@ -102,7 +102,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  
 
   private
 

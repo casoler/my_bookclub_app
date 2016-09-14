@@ -1,0 +1,10 @@
+<li class="collection-item" style="height: 70px">
+  <a href="/groups/<%= @group.id %>/book_suggestions">Vote for next month's book</a>
+  <%#= link_to "Vote for next month's book", "/groups/#{@group.id}/book_suggestions" %>
+</li>
+<li class="collection-item" style="height: 70px">
+  <a href='/meetings?group_id=<%= @group.id %>'>Show Meetings</a>
+</li>
+<li class="collection-item" style="height: 70px">
+  <a href='/selected_books?group_id=<%= @group.id %>'>Books: Past, Present, and Future</a>
+</li>
