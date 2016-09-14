@@ -19,7 +19,7 @@ class BooksController < ApplicationController
     isbn13 = params[:id]
     @member = Member.find_by(id: params[:member_id])
 
-    uri = URI("https://idreambooks.com/api/books/reviews.json?q=#{isbn13}&key=f3010f1c789deaf23f969ce57c9063667a466414")
+    uri = URI("https://idreambooks.com/api/books/reviews.json?q=#{isbn13}&key=#{ENV['IDREAMBOOKS_API_KEY']}")
 
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
@@ -31,7 +31,7 @@ class BooksController < ApplicationController
   private
 
     def get_books
-      uri = URI("https://idreambooks.com/api/publications/recent_recos.json?&slug=science-fiction-fantasy&key=f3010f1c789deaf23f969ce57c9063667a466414")
+      uri = URI("https://idreambooks.com/api/publications/recent_recos.json?&slug=science-fiction-fantasy&key=#{ENV['IDREAMBOOKS_API_KEY']}")
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
@@ -42,7 +42,7 @@ class BooksController < ApplicationController
     end
 
     def get_image(book)
-      uri = URI("https://www.goodreads.com/search/index.xml?key=cyFlHUBQwS2LDj4OaooHg&q=#{book['isbn']}")
+      uri = URI("https://www.goodreads.com/search/index.xml?key=#{ENV['GOODREADS_API_KEY']}=#{book['isbn']}")
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true

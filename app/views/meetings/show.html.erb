@@ -20,7 +20,7 @@
       Additional Info: <%= @meeting.notes %> <br/><br/>
 
       <% if @latitude && @longitude %>
-        <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@latitude}%2C#{@longitude}&key=AIzaSyCotyHl0epnD50jq0Chcxylb_OJicbNYQE" %>
+        <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@latitude}%2C#{@longitude}&key=#{ENV['GOOGLE_MAPS_API_KEY']}" %>
       <% end %>
     </p>
   </div>
