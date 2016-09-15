@@ -1,44 +1,57 @@
-<h5>Select books for next month:</h5>
+<div class="col s12 m12">
+  <div class="icon-block">
+    <h2 class="center brown-text"><i class="material-icons">group</i></h2>
 
-<%= form_tag "/groups/#{@member.group.id}/book_suggestions" do  %>
-  <% @books.each do |book| %>
-    
-    <div class="card horizontal">
-      <div class="card-image">
-        <img src="<%= book["image_url"] %>">
-      </div>
-      <div class="card-stacked">
-        <div class="card-content">
-          <h6><%= book["title"] %></h6>
+    <div style="text-align: center;vertical-align: middle;line-height: 90px;">
+      <h5><%= @member.group.name %></h5>
+      <h6>Select books for next month</h6>
+    </div>
+  </div>
+</div>
 
+<div style="font-size: 16px">
+<%= will_paginate @books %>
+</div>
+
+<div class="col s12 m12">
+  <%= form_tag "/groups/#{@member.group.id}/book_suggestions" do  %>
+    <% @books.each do |book| %>
+      
+      <div class="card horizontal">
+        <div class="card-image">
+          <img src="<%= book["image_url"] %>">
+        </div>
+        <div class="card-stacked">
           <div class="card-content">
-            Author: <%= book["author"] %><br/>
-            <%= book["description"] %>
+            <h6><%= book["title"] %></h6>
+
+            <div class="card-content">
+              Author: <%= book["author"] %><br/>
+              <%= book["description"] %>
+            </div>
+
+            <div>
+              <%= link_to controller: "books", action: "idreambooks", id: book['isbn'], member_id: @member.id do %>
+                <%= image_tag('/idreambooks.jpg') %> Book Reviews
+              <% end %>
+            </div>
+
+            <div class="card-action">
+              <p>
+                <input type="checkbox" id="book_suggestions_<%= book["isbn"] %>" name='book_suggestions[]' value='<%= book["isbn"] %>' />
+                <label for="book_suggestions_<%= book["isbn"] %>">Select</label>
+              </p>   
+            </div> 
+
           </div>
-
-          <div>
-            <%= link_to controller: "books", action: "idreambooks", id: book['isbn'], member_id: @member.id do %>
-              <%= image_tag('/idreambooks.jpg') %> Book Reviews
-            <% end %>
-          </div>
-
-          <div class="card-action">
-            <p>
-              <input type="checkbox" id="book_suggestions_<%= book["isbn"] %>" name='book_suggestions[]' value='<%= book["isbn"] %>' />
-              <label for="book_suggestions_<%= book["isbn"] %>">Select</label>
-            </p>   
-          </div> 
-
         </div>
       </div>
-    </div>
+    <% end %>
+
+    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+      <i class="material-icons right">send</i>
+    </button>
   <% end %>
-
-  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-    <i class="material-icons right">send</i>
-  </button>
-<% end %>
-
-<div class='row' style="margin-top:30px;">
-  <%= link_to "<-- Back to #{@member.group.name}", '/groups/#{@member.group.id}' %>
 </div>
+
+<%= will_paginate @books %>

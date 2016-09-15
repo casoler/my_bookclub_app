@@ -1,6 +1,9 @@
+require 'will_paginate/array'
+
+
 class BooksController < ApplicationController
   def index
-    @books = get_books
+    @books = get_books.paginate(page: params[:page], per_page: 10)
 
     @books.each do |book|
       book["isbn"] = book["isbns"].split(",")[0].to_i 
@@ -31,7 +34,7 @@ class BooksController < ApplicationController
   private
 
     def get_books
-      uri = URI("https://idreambooks.com/api/publications/recent_recos.json?&slug=science-fiction-fantasy&key=#{ENV['IDREAMBOOKS_API_KEY']}")
+      uri = URI("https://idreambooks.com/api/publications/recent_recos.json?&slug=#{params[:genre]}&key=#{ENV['IDREAMBOOKS_API_KEY']}")
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true

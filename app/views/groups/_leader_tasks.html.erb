@@ -1,5 +1,17 @@
-<li class="collection-item" style="height: 70px">
-  <a href='/books?member_id=<%= @member.id %>'>Make a suggestion list for next month's book</a>
+<li class="collection-item">
+
+  <ul class="collapsible" data-collapsible="accordion">
+    <li style="width:100%">
+      <div class="collapsible-header">Make a suggestion list for next month's book</div>
+      <div class="collapsible-body">
+        <p>
+          <% @member.group.genres.each do |genre| %>
+            <a href="/books?member_id=<%= @member.id %>&genre=<%= genre.genre %>"><%= genre.display_name %><br/>
+          <% end %>
+        </p>
+      </div>
+    </li>
+  </ul>
 </li>
 
 <li class="collection-item" style="height: 70px">

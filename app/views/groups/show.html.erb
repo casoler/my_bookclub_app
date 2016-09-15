@@ -9,7 +9,8 @@
     </ul>
   </div>
 
-  <div class="col s12 m6 " >
+  <div class="col s12 m1 " ></div>
+  <div class="col s12 m5 " >
     <div class="icon-block">
       <h2 class="center brown-text"><i class="material-icons">group</i></h2>
       <h5><%= @group.name %></h5>
@@ -19,7 +20,7 @@
       <% end %>
 
       <p>
-        <h6>Leader: </h6>
+        <h6><u><b>Leader: </b></u></h6>
         <% if @group.group_leader %>
           <%= @group.group_leader.user.first_name %> <%= @group.group_leader.user.last_name %>
         <% else %>
@@ -28,14 +29,15 @@
       </p>
 
       <p>
-        <h6>Location:</h6>
+        <h6><u><b>Location:</b></u></h6>
         <%= @group.city %>, <%= @group.state %>
       </p>
 
       <p>
-        <h6>Genres:</h6>
+        <h6><u><b>Genres:</b></u></h6>
         <% @group_genres.each do |group_genre| %>
-          <%= group_genre.genre.genre %></br/>
+          <i class="fa fa-angle-right" aria-hidden="true"></i>
+          <%= group_genre.genre.display_name %></br/>
         <% end %>
       </p>
     </div>
