@@ -51,7 +51,7 @@
           <ul class="collection">
             <% @group.members.each do |member| %>
               <li class="collection-item avatar">
-                <img src="/member<%= member.id %>.png" alt="Contact Person" class='circle'><br/>
+                <img src="/member<%= member.user.id %>.png" alt="Contact Person" class='circle'><br/>
                 <span class="title"><%= member.user.first_name %> <%= member.user.last_name %></span>
                 <p>
                   Chicago, IL

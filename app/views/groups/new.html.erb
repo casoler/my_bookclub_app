@@ -27,7 +27,7 @@
   <div class='row'>
     <% @genres.each do |genre| %>
       <input type="checkbox" id="genres_<%= genre.id %>" value="<%= genre.id %>" name="genres[]" />
-      <label for="genres_<%= genre.id %>"><%= genre.genre.titleize %></label>
+      <label for="genres_<%= genre.id %>"><%= genre.display_name %></label>
       <br/>
     <% end %>
   </div>

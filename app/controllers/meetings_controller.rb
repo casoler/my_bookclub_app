@@ -7,21 +7,11 @@ class MeetingsController < ApplicationController
   def new
     @meeting = Meeting.new
     @group = Group.find_by(id: params[:id])
-    selected_book_isbn = @group.selected_books.last.isbn
-    @selected_book = BookSuggestion.find_by(isbn: selected_book_isbn)
+    @selected_book = @group.selected_books.last
+    @selected_book_info = BookSuggestion.find_by(isbn: @selected_book.isbn)
   end
 
   def create
-    # complete_address = "#{params[:address]} #{params[:city]}, #{params[:state]} #{params[:zip]}"
-    # coordinates = Geocoder.coordinates(complete_address)
-    # if coordinates
-    #   computed_latitude = coordinates[0]
-    #   computed_longitude = coordinates[1]
-    # else
-    #   computed_latitude = nil
-    #   computed_longitude = nil
-    # end
-
     @meeting = Meeting.new(
       group_id: params[:id],
       meeting_date: params[:meeting_date],

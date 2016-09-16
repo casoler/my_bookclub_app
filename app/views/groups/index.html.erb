@@ -22,7 +22,14 @@
             <tr>
               <td><%= link_to group.name, "/groups/#{group.id}" %></td>
               <td><%= group.about %></td>
-              <td><%= group.genres.collect{|genre| genre.genre}.join(", ") %></td>
+              <td>
+                <ul>
+                  <% group.genres.collect{|genre| genre.display_name}.each do |genre|
+                    %>
+                    <li><%= genre %></li>
+                  <% end %>
+                </ul>
+              </td>
               <td><%= group.city %>, <%= group.state %></td>
             </tr>
           <% end %>
@@ -47,7 +54,14 @@
             <tr>
               <td><%= group.name %></td> 
               <td><%= group.about %></td>
-              <td><%= group.genres.collect{|genre| genre.genre}.join(", ") %></td>
+              <td>
+                <ul>
+                  <% group.genres.collect{|genre| genre.display_name}.each do |genre|
+                    %>
+                    <li><%= genre %></li>
+                  <% end %>
+                </ul>
+              </td>
               <td><%= group.city %>, <%= group.state %></td>
               <td><%= link_to('Join', "/groups/#{group.id}/add_member", method: :post) %></td>
             </tr>
